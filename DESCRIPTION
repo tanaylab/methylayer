@@ -29,3 +29,5 @@ Imports:
     writexl,
     Matrix,
     vegan
+URL: https://github.com/tanaylab/temla
+BugReports: https://github.com/tanaylab/temla/issues
