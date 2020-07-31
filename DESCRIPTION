@@ -1,0 +1,31 @@
+Package: temla
+Title: Tumor Expression Methylation Layerd Analysis
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Aviezer",
+           family = "Lifshitz",
+           role = c("aut", "cre"),
+           email = "aviezer.lifshitz@weizmann.ac.il")
+Description: Tools for methylation and expression analysis in tumors.
+License: MIT + file LICENSE
+Suggests: 
+    testthat
+Encoding: UTF-8
+Language: es
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.0
+Imports: 
+    tgutil,
+    tgstat,
+    dplyr,
+    purrr,
+    misha,
+    glue,
+    matrixStats,
+    magrittr,
+    tibble,
+    misha.ext,
+    writexl,
+    Matrix,
+    vegan
