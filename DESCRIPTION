@@ -1,35 +1,33 @@
-Package: temla
-Title: Tumor Expression-Methylation Layerd Analysis
+Package: methylayer
+Title: Layered modeling of tumor methylation
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Aviezer",
            family = "Lifshitz",
            role = c("aut", "cre"),
            email = "aviezer.lifshitz@weizmann.ac.il")
-Description: Tools for methylation and expression analysis in
-    tumors.
+Description: Tools for methylation and expression analysis in tumors.
 License: MIT + file LICENSE
-Imports: 
-    dplyr,
-    glue,
-    magrittr,
-    Matrix,
-    matrixStats,
-    misha,
-    misha.ext,
-    purrr,
-    tgstat,
-    tgutil,
-    tibble,
-    vegan,
-    writexl
 Suggests: 
     testthat
-Remotes: 
-    tanaylab/misha,
-    tanaylab/misha.ext
 Encoding: UTF-8
 Language: es
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.0
+Imports: 
+    tgutil,
+    tgstat,
+    dplyr,
+    purrr,
+    misha,
+    glue,
+    matrixStats,
+    magrittr,
+    tibble,
+    misha.ext,
+    writexl,
+    Matrix,
+    vegan
+Remotes: tanaylab/misha,
+  tanaylab/misha.ext

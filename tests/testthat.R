@@ -1,4 +1,4 @@
 library(testthat)
-library(temla)
+library(methylayer)
 
-test_check("temla")
+test_check("methylayer")

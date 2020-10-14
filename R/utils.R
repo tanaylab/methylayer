@@ -1,38 +1,3 @@
-#' Transform an intervals set to matrix
-#' 
-#' @param df intervals set
-#' 
-#' @return matrix with coordinate rownames (chrom_start_end).
-#' 
-#' @export
-intervs_to_mat <- function(df){    
-    mat <- df %>% 
-        unite("coord", chrom:end) %>% 
-        as.data.frame() %>% 
-        column_to_rownames("coord") %>% 
-        as.matrix()
-
-    return(mat)
-}
-
-
-#' Transform a matrix with coordinate rownames to intervals set 
-#' 
-#' @param mat matrix with coordinate rownames (chrom_start_end).
-#' 
-#' @return intervals set
-#' 
-#' @export
-mat_to_intervs <- function(mat){
-    df <- mat %>% 
-        as.data.frame() %>% 
-        rownames_to_column("coord") %>% 
-        separate(coord, c("chrom", "start", "end")) %>% 
-        mutate(start = as.numeric(start), end = as.numeric(end))
-
-    return(df)
-}
-
 #' Change rownames of matrix from coordinates to promoter names
 #' 
 #' @param mat matrix with coordinate rownames (chrom_start_end).
