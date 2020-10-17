@@ -18,6 +18,8 @@ normalize_immune_cafs_meth(
 
 \item{k}{k parameter for knn}
 
+\item{scale_feats}{scale features (recommended)}
+
 \item{caf_gene}{name of gene that is inside the CAF cluster (default: "CAV1")}
 
 \item{immune_gene}{name of gene that is inside the immune cluster (default: "CD3D")}

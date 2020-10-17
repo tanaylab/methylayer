@@ -37,3 +37,68 @@ promoter_names_to_coord <- function(mat, promoter_intervs){
         
     return(mat)    
 }
+
+filter_meth_mat_by_avg <- function(meth_mat, min_meth, max_meth){
+    meth_locus_avgs <- rowMeans(meth_mat, na.rm = TRUE)
+    f_mid_meth <- meth_locus_avgs > min_meth & meth_locus_avgs < max_meth
+    meth_mat <- meth_mat[f_mid_meth, ]
+    return(meth_mat)
+}
+
+########################################################################
+# Split the matrix x to k-by-k blocks and apply func to each block
+downscale_matrix <- function(x, k, func = mean) {
+    row_new <- ceiling(nrow(x) / k)
+    col_new <- ceiling(ncol(x) / k)
+    grid <- get_downscale_grid(x, k)
+
+    calc_block <- function(i) {
+        block <- x[grid$rstart[i]:grid$rend[i], grid$cstart[i]:grid$cend[i]]
+        return(func(block))
+    }
+    result <- run_wide(1:nrow(grid), calc_block)
+    result <- unlist(result)
+    dim(result) <- c(row_new, col_new)
+
+    return(result)
+}
+
+get_downscale_grid <- function(x, k) {
+    row_new <- ceiling(nrow(x) / k)
+    col_new <- ceiling(ncol(x) / k)
+    grid <- tidyr::crossing(cstart = (1:col_new - 1) * k + 1, rstart = (1:row_new - 1) * k + 1) %>%
+        arrange(cstart, rstart)
+    grid <- grid %>%
+        mutate(cend = pmin(cstart + k - 1, ncol(x)), rend = pmin(rstart + k - 1, nrow(x)))
+    return(grid)
+}
+
+get_downscale_block <- function(x, k, type = "row") {
+    calc_row_block <- function(i) {
+        data.frame(row = rownames(x)[grid$rstart[i]:grid$rend[i]], ds_row = i)
+    }
+
+    calc_column_block <- function(i) {
+        data.frame(col = colnames(x)[grid$cstart[i]:grid$cend[i]], ds_col = i)
+    }
+
+    if (type == "row") {
+        if (is.null(rownames(x))) {
+            rownames(x) <- 1:nrow(x)
+        }
+        grid <- get_downscale_grid(x, k) %>% distinct(rstart, rend)
+        result <- run_wide(1:nrow(grid), calc_row_block)
+        result <- map_dfr(result, ~.x)
+    }
+
+    if (type == "column") {
+        if (is.null(colnames(x))) {
+            colnames(x) <- 1:ncol(x)
+        }
+        grid <- get_downscale_grid(x, k) %>% distinct(cstart, cend)
+        result <- run_wide(1:nrow(grid), calc_column_block)
+        result <- map_dfr(result, ~.x)
+    }
+
+    return(result)
+}

@@ -34,12 +34,10 @@ em_cross_cor <- function(meth_mat, expr_mat, min_meth = NULL, max_meth = NULL, m
     samples <- samples %||% intersect(colnames(meth_mat), colnames(expr_mat))    
 
     message("# of samples: ", length(samples))
-    
+      
     if (!is.null(min_meth) && !is.null(max_meth)) {
-        meth_locus_avgs <- rowMeans(meth_mat, na.rm = TRUE)
-        f_mid_meth <- meth_locus_avgs > min_meth & meth_locus_avgs < max_meth
-        meth_mat <- meth_mat[f_mid_meth, ]
-    }
+        meth_mat <- filter_meth_mat_by_avg(meth_mat, min_meth, max_meth)
+    }    
     
     if (!is.null(min_sd)) {
         meth_locus_sd <- matrixStats::rowSds(as.matrix(meth_mat), na.rm = TRUE)

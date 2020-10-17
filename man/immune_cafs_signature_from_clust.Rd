@@ -14,11 +14,11 @@ immune_cafs_signature_from_clust(
 \arguments{
 \item{em_clust}{output of \code{cluster_em_cross_cor}}
 
+\item{scale_feats}{scale features (recommended)}
+
 \item{caf_gene}{name of gene that is inside the CAF cluster (default: "CAV1")}
 
 \item{immune_gene}{name of gene that is inside the immune cluster (default: "CD3D")}
-
-\item{sacle_feats}{scale features (recommended)}
 }
 \value{
 matrix with 'CAF' and 'immune' score for each sample

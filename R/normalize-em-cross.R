@@ -24,7 +24,7 @@ normalize_mat_knn <- function(mat, knn_mat) {
 #' Define immune and CAF signatures 
 #' 
 #' @param em_clust output of \code{cluster_em_cross_cor}
-#' @param sacle_feats scale features (recommended)
+#' @param scale_feats scale features (recommended)
 #' @param caf_gene name of gene that is inside the CAF cluster (default: "CAV1")
 #' @param immune_gene name of gene that is inside the immune cluster (default: "CD3D")
 #' 
