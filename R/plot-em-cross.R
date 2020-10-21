@@ -50,7 +50,7 @@ plot_em_cross_cor <- function(em_clust, fig_ofn=NULL, width = 1000, height = 140
 #' @export
 plot_meth_mat_cm <- function(cm, k, fig_ofn=NULL, width = 1000, height = 1000, hc_meth=NULL, downscale = FALSE, zlim = c(-0.3, 0.3), colors = c("black", "darkred", "white", "darkblue", "cyan")) {    
 
-    if (!is.null(hc_meth)){
+    if (is.null(hc_meth)){
         hc_meth <- tgs_dist(cm) %>% hclust(method = "ward.D2")        
     }
         
