@@ -128,22 +128,7 @@ cluster_em_cross_cor <- function(em_list, k_meth, k_expr=k_meth, hc_exp = NULL, 
     } else {
         sort_mat <- meth_mat
     }
-
-    # Sort clusters by average methylation
-    clust2newclust <- meth_clust %>% 
-        mutate(locus_avg = rowMeans(sort_mat[locus, ], na.rm=TRUE)) %>% 
-        group_by(clust) %>% 
-        summarise(avg = mean(locus_avg, na.rm=TRUE)) %>% 
-        arrange(avg) %>% 
-        mutate(new_clust = 1:n())
-
-    hc_meth <- vegan:::reorder.hclust(hc_meth, wts = clust2newclust$new_clust)
-        
-    meth_clust <- meth_clust %>%
-        left_join(clust2newclust %>% distinct(clust, new_clust), by = "clust") %>%
-        select(-clust) %>%
-        rename(clust = new_clust)
-
+    
     expr_mods <- t(tgs_matrix_tapply(t(expr_mat[names(km_expr), ]), km_expr, mean, na.rm=TRUE))
     rownames(expr_mods) <- colnames(expr_mat)
     meth_mods <- t(tgs_matrix_tapply(t(meth_mat[names(km_meth), ]), km_meth, mean, na.rm = TRUE))
