@@ -19,6 +19,7 @@ deconv_TME(
   k_expr = k_meth,
   caf_gene = "CAV1",
   immune_gene = "CD3D",
+  scores_cor_thresh = 0.3,
   ...
 )
 }
@@ -51,15 +52,18 @@ deconv_TME(
 
 \item{immune_gene}{name of gene that is inside the immune cluster (default: "CD3D")}
 
+\item{scores_cor_thresh}{minimal (anti) correlation of loci methylation to TME expression scores in order to create TME methylaton scores}
+
 \item{...}{additional parameters to \code{em_cross_cor}}
 }
 \value{
 a list with:
 \itemize{
 \item{norm_meth}{Matrix with normalized methylation values of \code{raw_meth_mat}}
-\item{tme_features}{Data frame with Immune and CAF expression signatures per sample}
+\item{tme_features}{Data frame with Immune and CAF expression and methylation signatures per sample}
+\item(tme_loci){list with intervals set of loci that were included in the immune and CAF methylation scores}
 \item{em_cross}{List as returned from \code{em_cross_cor}. Mainly includes a matrix with expression-methylation correlation values that were used for the deconvolution algorithm, where rows are loci and columns are genes}
-\item{em_cross_clust}{Clustering of expression-methylation correlation data, as returned from \{code}{cluster_em_cross_cor}}
+\item{em_cross_clust}{Clustering of expression-methylation correlation data, as returned from \code{cluster_em_cross_cor}}
 }
 }
 \description{
