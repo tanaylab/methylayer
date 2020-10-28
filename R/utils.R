@@ -9,10 +9,10 @@
 coord_to_promoter_names <- function(mat, promoter_intervs){
     promoter_intervs <- promoter_intervs %>%                 
         distinct(chrom, start, end, name)
-    
+
     mat <- mat %>% 
         mat_to_intervs() %>% 
-        left_join(promoter_intervs, by = c("chrom", "start", "end")) %>%         
+        inner_join(promoter_intervs, by = c("chrom", "start", "end")) %>%         
         distinct(name, .keep_all=TRUE) %>% 
         distinct(chrom, start, end, .keep_all=TRUE) %>% 
         select(-(chrom:end)) %>% 
