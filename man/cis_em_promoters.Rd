@@ -2,26 +2,29 @@
 % Please edit documentation in R/cis-promoters.R
 \name{cis_em_promoters}
 \alias{cis_em_promoters}
-\title{Get candidates for promtoers that are regulated by methylation in cis}
+\title{Get candidates for promoters that are regulated by methylation in cis}
 \usage{
 cis_em_promoters(
   meth_mat,
   expr_mat,
   promoter_intervs,
   k_locus_rank = 2,
-  min_samples = 100
+  min_samples = 100,
+  spearman = FALSE
 )
 }
 \arguments{
-\item{meth_mat}{Matrix with methylation values. Each row is a promoter and each column is a sample. Rownames should contain the name of the promoter (gene name).}
+\item{meth_mat}{Matrix with methylation values. Each row is a promoter and each column is a sample. Rownames should contain "chrom", "start" and "end" separated by "_"}
 
 \item{expr_mat}{Matrix with expression values. Each row is a gene and each column is a sample.}
 
-\item{promoter_intervs}{intervals set with additional "name" column. In case of duplicate names or coordinates the first one in the matrix will be used.}
+\item{promoter_intervs}{intervals set with additional "name" column. In case of duplicate names or coordinates the first one in the matrix will be used. Only intervals that are within promoter_intervs would be used.}
 
 \item{k_locus_rank}{rank of the correlation to extract for each promoter. For example, if \code{k_locus_rank = 2} the second best correlation would be extracted for every promoter in the field \code{kth}}
 
-\item{min_samples}{minimal number of samples per gene (both expression and methylation)}
+\item{min_samples}{minimal number of samples per gene (both expression and methylation). Default is 100.}
+
+\item{spearman}{use spearman correlation (if FALSE - use pearson)}
 }
 \value{
 dataframe with the following columns:
@@ -30,9 +33,9 @@ dataframe with the following columns:
 \item{rank}{rank of the correlation of the gene with it's promoter}
 \item{cor}{correlation of the gene with it's promoter}
 \item{kth}{\code{k_locus_rank}th best correlation of the gene with a promoter}
-\item{fdr}{false discovery rate for detecting the cis-raget with rank value <= \code{rank}}
+\item{fdr}{false discovery rate for detecting the cis-raget with rank value <= \code{rank}. Assuming independence between expression and methylation, the false discovery rate (FDR) for detecting the cis-target (diagonal value) with rank value <= k was defined as k / m, where m is the number of observed genes having cis-target (diagonal value) with rank value <= k.}
 }
 }
 \description{
-Get candidates for promtoers that are regulated by methylation in cis
+Get candidates for promoters that are regulated by methylation in cis
 }

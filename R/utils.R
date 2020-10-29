@@ -45,6 +45,36 @@ filter_meth_mat_by_avg <- function(meth_mat, min_meth, max_meth){
     return(meth_mat)
 }
 
+gintervals.distance <- function(chrom1, start1, end1, strand1, chrom2, start2, end2, strand2) {
+    left_dist <- ifelse(strand2 == 1, 
+        -1 * (start2 - end1), 
+        start2 - end1
+    )
+    
+    right_dist <- ifelse(strand2 == 1, 
+        -1 * (end2 - start1), 
+        end2 - start1
+    )
+    
+    d <- ifelse(
+        abs(left_dist) <= abs(right_dist), 
+        left_dist, 
+        right_dist
+    )
+    
+    d <- ifelse(
+        pmax(start1, start2) < pmin(end1, end2),
+        0,
+        d        
+    )
+    
+    d <- ifelse(chrom1 == chrom2, 
+        d,         
+        NA)
+    
+    return(d)
+}
+
 ########################################################################
 # Split the matrix x to k-by-k blocks and apply func to each block
 downscale_matrix <- function(x, k, func = mean) {
