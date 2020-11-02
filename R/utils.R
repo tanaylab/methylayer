@@ -40,7 +40,7 @@ promoter_names_to_coord <- function(mat, promoter_intervs){
 
 filter_meth_mat_by_avg <- function(meth_mat, min_meth, max_meth){
     meth_locus_avgs <- rowMeans(meth_mat, na.rm = TRUE)
-    f_mid_meth <- meth_locus_avgs > min_meth & meth_locus_avgs < max_meth
+    f_mid_meth <- !is.na(meth_locus_avgs) & meth_locus_avgs > min_meth & meth_locus_avgs < max_meth
     meth_mat <- meth_mat[f_mid_meth, ]
     return(meth_mat)
 }

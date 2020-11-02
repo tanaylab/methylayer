@@ -31,19 +31,19 @@ deconv_TME <- function(meth_mat, expr_mat, raw_meth_mat, min_meth = 0.1, max_met
     
     if (is.null(min_sd)){
         meth_locus_sd <- matrixStats::rowSds(as.matrix(meth_mat), na.rm = TRUE)
-        min_sd <- quantile(meth_locus_sd, 0.1)
+        min_sd <- quantile(meth_locus_sd, 0.1, na.rm=TRUE)
         message(glue("min_sd: {min_sd}"))
     }
     
     if (is.null(min_expr)){
         gene_maxs <- matrixStats::rowMaxs(expr_mat, na.rm=TRUE)
         min_expr <- quantile(gene_maxs[is.finite(gene_maxs)], 0.05, na.rm=TRUE)
-        expr_mat <- expr_mat[gene_maxs >=  min_expr, ]
+        expr_mat <- expr_mat[is.finite(gene_maxs) & !is.na(gene_maxs) & gene_maxs >= min_expr, ]
         message(glue("min_expr: {min_expr}"))
-    }
-    
+    }    
+   
     message("calculating em-cross")
-    em_cross <- em_cross_cor(meth_mat, expr_mat, min_meth = min_meth, max_meth = max_meth, max_na = 0, meth_cor_thresh = meth_cor_thresh, expr_cor_thresh = expr_cor_thresh, ...)
+    em_cross <- em_cross_cor(meth_mat, expr_mat, min_meth = min_meth, max_meth = max_meth, max_na = 0, meth_cor_thresh = meth_cor_thresh, expr_cor_thresh = expr_cor_thresh, ...)    
     
     message("clustering em-cross")
     em_cross_clust <- cluster_em_cross_cor(em_cross, k_meth = k_meth, k_expr = k_expr)

@@ -68,9 +68,12 @@ em_cross_cor <- function(meth_mat, expr_mat, min_meth = NULL, max_meth = NULL, m
     } else {
         expr_maxcor_f <- rep(TRUE, ncol(em_cross))
     }    
-
+    
     if (!is.null(max_na)){
-        meth_maxcor_f <- meth_maxcor_f & rowSums(is.na(em_cross)) <= max_na
+        expr_maxcor_f <- expr_maxcor_f & colSums(is.na(em_cross)) <= max_na
+        message(glue("{columns} columns did not have more than {max_na} Na's ", columns = sum(expr_maxcor_f)))
+        
+        meth_maxcor_f <- meth_maxcor_f & rowSums(is.na(em_cross[, expr_maxcor_f])) <= max_na
         message(glue("{rows} rows did not have more than {max_na} Na's ", rows = sum(meth_maxcor_f)))
     }
     

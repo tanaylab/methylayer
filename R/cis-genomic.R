@@ -98,8 +98,8 @@ rank_genomic_cis_matrix <- function(m, max_k, parallel=TRUE){
 }
 
 compute_cis_fdr <- function(cands_df, max_k, max_dist, min_dist){
-    top_shuff <- cands_df %>% filter(type == "shuff", abs(dist) <= max_dist, abs(dist) > min_dist)
-    top_obs <- cands_df %>% filter(type == "obs", abs(dist) <= max_dist, abs(dist) > min_dist)
+    top_shuff <- cands_df %>% filter(type == "shuff", !is.na(dist), abs(dist) <= max_dist, abs(dist) > min_dist)
+    top_obs <- cands_df %>% filter(type == "obs", !is.na(dist), abs(dist) <= max_dist, abs(dist) > min_dist)
 
     min_ranks <- top_obs %>%
         group_by(chrom, start, end) %>%
@@ -112,7 +112,7 @@ compute_cis_fdr <- function(cands_df, max_k, max_dist, min_dist){
         pull(r)    
 
     fdr_ranks <- map_dfr(1:max_k, ~ tibble(rank = .x, n_obs = sum(min_ranks <= .x), n_shuff = sum(min_ranks_shuff <= .x))) %>% mutate(fdr = n_shuff / n_obs)
-    
+   
     return(fdr_ranks)
 }
 

@@ -11,6 +11,7 @@
 #' @return dataframe with the following columns:
 #' \itemize{
 #'  \item{name}{name of the gene}
+#'  \item(chrom,start,end){coordinates of the gene promoter}
 #'  \item{rank}{rank of the correlation of the gene with it's promoter}
 #'  \item{cor}{correlation of the gene with it's promoter}
 #'  \item{kth}{\code{k_locus_rank}th best correlation of the gene with a promoter}
@@ -63,6 +64,9 @@ cis_em_promoters <- function(meth_mat, expr_mat, promoter_intervs, k_locus_rank 
         mutate(m = cumsum(n_r), fdr = pmin(1, r / m))
         
     cands <- cands %>% left_join(fdr_ranks %>% select(r, fdr, n_fdr=m), by = "r")
+
+    # add coordinates of promoter
+    cands <- cands %>% left_join(promoter_intervs %>% distinct(chrom, start, end, name), by = "name") %>% select(name, chrom, start, end, everything())
 
     return(cands)
 }
