@@ -30,6 +30,7 @@ cis_em_promoters(
 dataframe with the following columns:
 \itemize{
 \item{name}{name of the gene}
+\item(chrom,start,end){coordinates of the gene promoter}
 \item{rank}{rank of the correlation of the gene with it's promoter}
 \item{cor}{correlation of the gene with it's promoter}
 \item{kth}{\code{k_locus_rank}th best correlation of the gene with a promoter}
