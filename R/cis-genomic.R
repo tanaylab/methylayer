@@ -27,9 +27,8 @@ cis_em_genomic <- function(meth_mat, expr_mat, gene_tss, min_samples = 100, max_
     message("# of genes: ", sum(f_genes))
     message("# of loci: ", sum(f_loci))
     
-    
     message("calculating expression-methylation correlation...")
-    m <- tgs_cor(t(meth_mat[f_loci, samples]), t(expr_mat[f_genes, samples]), spearman = spearman, pairwise.complete.obs=TRUE)
+    m <- tgs_cor_large_matrices(t(meth_mat[f_loci, samples]), t(expr_mat[f_genes, samples]), spearman = spearman, pairwise.complete.obs=TRUE)
     
     message("ranking correlations of each locus (row) with all the genes (columns)...")
     top_k <- rank_genomic_cis_matrix(m, max_k, parallel = parallel)

@@ -132,3 +132,15 @@ get_downscale_block <- function(x, k, type = "row") {
 
     return(result)
 }
+
+
+########################################################################
+tgs_cor_large_matrices <- function(x, y, pairwise.complete.obs = FALSE, spearman = FALSE, nbins = 10){
+    bucket <- ntile(rownames(x), nbins)
+    res <- map(unique(bucket), ~ {        
+        tgs_cor(x[, bucket == .x], y, pairwise.complete.obs = pairwise.complete.obs, spearman = spearman)
+    } )
+
+    res <- do.call(rbind, res)
+    return(res)    
+}
