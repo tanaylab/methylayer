@@ -70,3 +70,31 @@ cis_em_promoters <- function(meth_mat, expr_mat, promoter_intervs, k_locus_rank 
 
     return(cands)
 }
+
+#' Get correlations of all promoters to a specific gene 
+#' 
+#' @param gene name of the gene
+#' @inheritParams cis_em_promoters
+#' 
+#' @return dataframe with the following columns:
+#' \itemize{
+#'  \item{gene}{name of the gene}
+#'  \item{promoter}{name of the promoter}
+#'  \item(cor){correlation of the gene}
+#' }
+#' 
+#' 
+gene_promoter_cors <- function(gene, meth_mat, expr_mat, promoter_intervs, spearman = FALSE){
+    meth_mat <- coord_to_promoter_names(meth_mat, promoter_intervs)
+    
+    samples <- intersect(colnames(meth_mat), colnames(expr_mat))    
+    genes <- intersect(rownames(meth_mat), rownames(expr_mat))
+    if (!(gene %in% genes)){
+        stop("gene is not in both meth_mat and expr_mat")
+    }        
+     
+    m <- tgs_cor(t(as.matrix(meth_mat[genes, samples])), as.matrix(expr_mat[gene, samples]), spearman=spearman, pairwise.complete.obs=TRUE)
+
+    res <-  m %>% as.data.frame() %>% rownames_to_column("promoter") %>% rename(cor = V1) %>% arrange(cor) %>% as_tibble()
+    return(res)    
+}
