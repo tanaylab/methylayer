@@ -9,9 +9,9 @@ get_TME_genes(em_list, immune_gene = "CD3D", caf_gene = "CAV1")
 \arguments{
 \item{em_list}{output of \code{em_cross_cor}}
 
-\item{immune_gene}{name of canonical immune gene (default: CD3D)}
+\item{immune_gene}{name of canonical immune gene (default: CD3D). If NULL - only CAF genes would be returned.}
 
-\item{caf_gene}{name of canonical immune gene (default: CAV1)}
+\item{caf_gene}{name of canonical immune gene (default: CAV1). If NULL - only immune genes would be returned.}
 }
 \value{
 vector with names of TME genes

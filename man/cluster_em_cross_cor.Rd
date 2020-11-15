@@ -20,8 +20,6 @@ cluster_em_cross_cor(
 \item{k_expr}{number of expression clusters}
 
 \item{hc_exp}{\code{hclust} object with existing clustering of the matrix columns}
-
-\item{normal_meth}{matrix with methylation in normal samples}
 }
 \value{
 a list with:

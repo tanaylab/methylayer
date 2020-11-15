@@ -94,7 +94,6 @@ em_cross_cor <- function(meth_mat, expr_mat, min_meth = NULL, max_meth = NULL, m
 #' @param k_meth number of methylation clusters
 #' @param k_expr number of expression clusters
 #' @param hc_exp \code{hclust} object with existing clustering of the matrix columns
-#' @param normal_meth matrix with methylation in normal samples
 #' 
 #' @return a list with:
 #' \itemize{
@@ -125,13 +124,7 @@ cluster_em_cross_cor <- function(em_list, k_meth, k_expr=k_meth, hc_exp = NULL, 
 
     km_expr <- cutree_order(hc_exp, k = k_expr)
     expr_clust <- enframe(km_expr, name = "name", value = "clust")
-
-    if (!is.null(normal_meth)) {
-        sort_mat <- normal_meth        
-    } else {
-        sort_mat <- meth_mat
-    }
-    
+   
     expr_mods <- t(tgs_matrix_tapply(t(expr_mat[names(km_expr), ]), km_expr, mean, na.rm=TRUE))
     rownames(expr_mods) <- colnames(expr_mat)
     meth_mods <- t(tgs_matrix_tapply(t(meth_mat[names(km_meth), ]), km_meth, mean, na.rm = TRUE))
