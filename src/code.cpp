@@ -23,27 +23,3 @@ NumericMatrix shuffle_each_column(const NumericMatrix& mat){
     return(m);
 }
 
-// IntegerVector order_(const NumericVector& x) {
-//   NumericVector sorted = clone(x).sort();
-//   return match(sorted, x);
-// }
-
-// // [[Rcpp::export]]
-// IntegerMatrix bounded_row_order(const NumericMatrix& mat, const int& k){    
-//     int max_k = std::min(k, int(mat.ncol()));
-    
-//     IntegerMatrix m = IntegerMatrix(mat.nrow(), max_k);
-    
-//     for (int i=0; i<mat.nrow(); ++i){
-//         NumericVector orig = mat(i, _);
-//         IntegerMatrix::Row res = m(i, _);
-        
-//         IntegerVector ord = order_(orig);
-                
-//         std::copy( ord.begin(), ord.begin() + max_k, res.begin() ) ;
-
-//         // Rcout << order_(orig) << "\n";
-//     }      
-    
-//     return(m);
-// }

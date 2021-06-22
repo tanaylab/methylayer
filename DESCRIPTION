@@ -19,8 +19,7 @@ Imports:
     tgutil,
     tgstat,
     dplyr,
-    purrr,
-    misha,
+    purrr,    
     glue,
     matrixStats,
     magrittr,
@@ -29,8 +28,8 @@ Imports:
     writexl,
     Matrix,
     vegan,
-    Rcpp
-Remotes: tanaylab/misha,
-  tanaylab/misha.ext
+    Rcpp,
+    tgutil
+Remotes: tanaylab/tgutil
 LinkingTo: 
     Rcpp

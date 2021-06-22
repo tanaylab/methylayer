@@ -8,7 +8,7 @@
 #' @param k_expr number of expression clusters when clustering expression-methylation data
 #' @param caf_gene name of gene that is inside the CAF cluster (default: "CAV1")
 #' @param immune_gene name of gene that is inside the immune cluster (default: "CD3D")
-#' @param scores_cor_thresh minimal (anti) correlation of loci methylation to TME expression scores in order to create TME methylaton scores
+#' @param scores_cor_thresh minimal (anti) correlation of loci methylation to TME expression scores in order to create TME methylatoon scores
 #' @param ... additional parameters to \code{em_cross_cor}
 #' 
 #' @return a list with:
