@@ -1,7 +1,5 @@
 #' @keywords internal
 #' @import dplyr
-#' @import misha
-#' @import misha.ext
 #' @import tidyr
 #' @import ggplot2
 #' @importFrom tibble as_tibble

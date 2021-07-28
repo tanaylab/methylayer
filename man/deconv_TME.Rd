@@ -52,7 +52,7 @@ deconv_TME(
 
 \item{immune_gene}{name of gene that is inside the immune cluster (default: "CD3D")}
 
-\item{scores_cor_thresh}{minimal (anti) correlation of loci methylation to TME expression scores in order to create TME methylaton scores}
+\item{scores_cor_thresh}{minimal (anti) correlation of loci methylation to TME expression scores in order to create TME methylatoon scores}
 
 \item{...}{additional parameters to \code{em_cross_cor}}
 }

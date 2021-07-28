@@ -144,3 +144,39 @@ tgs_cor_large_matrices <- function(x, y, pairwise.complete.obs = FALSE, spearman
     res <- do.call(rbind, res)
     return(res)    
 }
+
+#' Transform an intervals set to matrix
+#' 
+#' @param df intervals set
+#' 
+#' @return matrix with coordinate rownames (chrom_start_end).
+#' 
+#' @export
+intervs_to_mat <- function(df){    
+    mat <- df %>% 
+        unite("coord", chrom:end) %>% 
+        as.data.frame() %>%
+	remove_rownames() %>%  
+        column_to_rownames("coord") %>% 
+        as.matrix()
+
+    return(mat)
+}
+
+
+#' Transform a matrix with coordinate rownames to intervals set 
+#' 
+#' @param mat matrix with coordinate rownames (chrom_start_end).
+#' 
+#' @return intervals set
+#' 
+#' @export
+mat_to_intervs <- function(mat){
+    df <- mat %>% 
+        as.data.frame() %>% 
+        rownames_to_column("coord") %>% 
+        separate(coord, c("chrom", "start", "end"), sep="_") %>% 
+        mutate(start = as.numeric(start), end = as.numeric(end))
+
+    return(df)
+}
