@@ -21,4 +21,3 @@ You can install methylayer using:
 remotes::install_github("tanaylab/methylayer")
 ```
 
-## Usage
