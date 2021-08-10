@@ -83,7 +83,7 @@ cis_em_promoters <- function(meth_mat, expr_mat, promoter_intervs, k_locus_rank 
 #'  \item(cor){correlation of the gene}
 #' }
 #' 
-#' 
+#' @export
 gene_promoter_cors <- function(gene, meth_mat, expr_mat, promoter_intervs, spearman = FALSE){
     meth_mat <- coord_to_promoter_names(meth_mat, promoter_intervs)
     
